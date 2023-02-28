@@ -12,5 +12,10 @@ function checkCurrentDay () {
 setInterval(checkCurrentDay , 60000)
 
 for (i = 0; i < timeArray.length; i++) {
-    document.querySelector(`.container`).innerHTML += `<div>${timeArray[i]}</div>`
+    document.querySelector(`.container`).innerHTML += 
+    `<div class = "row hour">
+    <div class = "time">${timeArray[i]} </div>
+    <textarea class = "text">text goes here</textarea>
+    <button class="saveBtn"><img src = "./Assets/save.png" width = "50" height = "50"/></button>
+    </div>`
 }
