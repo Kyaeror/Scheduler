@@ -11,11 +11,42 @@ function checkCurrentDay () {
 }
 setInterval(checkCurrentDay , 60000)
 
+//writes all timeblocks based on normal business hours
 for (i = 0; i < timeArray.length; i++) {
     document.querySelector(`.container`).innerHTML += 
     `<div class = "row hour">
     <div class = "time">${timeArray[i]} </div>
-    <textarea class = "text">text goes here</textarea>
+    <textarea id = "text${i}" class = "future text">text goes here</textarea>
     <button class="saveBtn"><img src = "./Assets/save.png" width = "50" height = "50"/></button>
     </div>`
 }
+
+//sets the colors based on past present or future
+for (i = 0; i < timeArray.length; i++) {
+    if (moment().format('h:00 a') != timeArray[i]){
+            document.querySelector(`#text${i}`).classList.add("past")
+            document.querySelector(`#text${i}`).classList.remove("future")
+            document.querySelector(`#text${i}`).classList.remove("present")
+    } else if (moment().format('h:00 a') == timeArray[i]){
+        document.querySelector(`#text${i}`).classList.add("present")
+        document.querySelector(`#text${i}`).classList.remove("future")
+        document.querySelector(`#text${i}`).classList.remove("past")
+        break
+    }
+}
+
+//checks consistently if it is past present or future every minute then changes colors accordingly
+setInterval( () => {
+    for (i = 0; i < timeArray.length; i++) {
+        if (moment().format('h:00 a') != timeArray[i]){
+                document.querySelector(`#text${i}`).classList.add("past")
+                document.querySelector(`#text${i}`).classList.remove("future")
+                document.querySelector(`#text${i}`).classList.remove("present")
+        } else if (moment().format('h:00 a') == timeArray[i]){
+            document.querySelector(`#text${i}`).classList.add("present")
+            document.querySelector(`#text${i}`).classList.remove("future")
+            document.querySelector(`#text${i}`).classList.remove("past")
+            break
+        }
+    }
+},60000)
